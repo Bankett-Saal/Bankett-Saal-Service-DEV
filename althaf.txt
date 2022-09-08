@@ -1,6 +1,6 @@
 node{ 
     stage ('bankett scm checkout'){
-    git branch: 'althaf', credentialsId: 'Bankett-Github', url: 'https://github.com/Bankett-Saal/Bankett-Saal-Service-DEV.git'
+    git branch: 'althaf1', credentialsId: 'Bankett-Github', url: 'https://github.com/Bankett-Saal/Bankett-Saal-Service-DEV.git'
     }
     
     stage('gradle Package'){
@@ -10,6 +10,6 @@ node{
    } 
     
     stage ('running the artifact'){
-    sh "java -jar /var/lib/jenkins/workspace/Althafbanket/build/libs/*.jar"
+    sh "java -jar /var/lib/jenkins/workspace/althaf1/build/libs/*.jar"
     }
 }
