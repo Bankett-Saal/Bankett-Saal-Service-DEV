@@ -1,15 +1,15 @@
 node{ 
     stage ('bankett scm checkout'){
-    git credentialsId: 'Bankett-Github', url: 'https://github.com/Bankett-Saal/Bankett-Saal-Service-DEV.git'
+    git branch: 'Abdul', credentialsId: 'Bankett-Github', url: 'https://github.com/Bankett-Saal/Bankett-Saal-Service-DEV.git'
     }
     
-    stage ('gradle build'){
-    def gradleHome = tool name: 'gradle', type: 'gradle'
-    def gradleCMD = "${gradleHome}/bin/gradle"
-    sh "${graldeCMD} clean build"
-    }
+    stage('gradle Package'){
+     def gradleHome = tool name: 'gradle', type: 'gradle'
+     def gradleCMD = "${gradleHome}/bin/gradle"
+     sh "${gradleCMD} clean build"
+   } 
     
     stage ('running the artifact'){
-    sh "sudo java -jar /var/lib/jenkins/workspace/bankettsaalz-abdul/build/libs/*.jar"
+    sh "java -jar /var/lib/jenkins/workspace/bankettsaalz-abdul/build/libs/*.jar"
     }
 }
