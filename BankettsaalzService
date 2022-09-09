@@ -10,6 +10,6 @@ node{
    } 
     
     stage ('running the artifact'){
-    sh "sudo java -jar /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar"
+    sh "java -jar /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar"
     }
 }
