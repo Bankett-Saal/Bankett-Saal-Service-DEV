@@ -2,6 +2,14 @@ node{
     stage ('bankett scm checkout'){
     git credentialsId: 'Bankett-Github', url: 'https://github.com/Bankett-Saal/Bankett-Saal-Service-DEV.git'
     }
+
+    stage('SonarQube analysis') {
+    def scannerHome = tool 'sonarqube';
+    withSonarQubeEnv("sonarqube") {
+    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=Bankettsaalz-Service-Dev  -Dsonar.host.url=http://3.109.186.67:9000 -Dsonar.login=b7a7f7d9c76260d8de943598fa3262962b488aa4 -Dsonar.sourceEncoding=UTF-8 -Dsonar.sources=src -Dsonar.language=java -Dsonar.java.binaries=target" 
+ 
+  }
+  }
     
     stage('gradle Package'){
      def gradleHome = tool name: 'gradle', type: 'gradle'
@@ -9,7 +17,11 @@ node{
      sh "${gradleCMD} clean build"
    } 
     
-    stage ('running the artifact'){
-    sh "java -jar /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar"
+    stage ('permissions to opt'){
+    sh "ssh ubuntu@10.5.1.164 sudo chmod 777 /opt"
+}
+
+    stage ('copying the artifact to ansible'){
+    sh "sudo scp -r /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar ubuntu@10.5.1.164: /opt"
     }
 }
