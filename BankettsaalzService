@@ -22,6 +22,6 @@ node{
 }
 
     stage ('copying the artifact to ansible'){
-    sh "scp -r /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar ubuntu@10.5.1.164: /opt"
+    sh "scp -r /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar ubuntu@10.5.1.164:/opt"
     }
 }
