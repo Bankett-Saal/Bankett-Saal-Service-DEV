@@ -19,7 +19,6 @@ node{
     
     stage ('permissions to opt'){
     sh "ssh ubuntu@10.5.1.164 sudo chmod 777 /opt"
-
 }
 
     stage ('copying the artifact to ansible'){
