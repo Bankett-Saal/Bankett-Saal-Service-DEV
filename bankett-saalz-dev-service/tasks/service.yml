@@ -1,0 +1,20 @@
+---
+- name: stoping the jar execution file
+  shell: sudo kill -9 $(sudo lsof -t -i :8057)
+  ignore_errors: yes
+
+- name: removing the old artifacts in the dev servers
+  shell: sudo rm -rf /opt/*.jar
+  ignore_errors: yes
+
+- name: permissions to opt dir
+  shell: sudo chmod 777 /opt
+
+- name: copying the new jar file from jenkins build and moving to the dev service servers
+  copy:
+    src: /opt/functionhall-service-0.0.1-SNAPSHOT.jar
+    dest: /opt/
+
+- name: starting the jar executable file
+  shell: "(cd /opt/; sudo java -jar /opt/functionhall-service-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &)"
+  async: 20
