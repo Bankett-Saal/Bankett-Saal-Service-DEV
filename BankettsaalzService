@@ -25,5 +25,7 @@ node{
     sh "scp -r /var/lib/jenkins/workspace/bankettsaalz-service/build/libs/*.jar ubuntu@10.5.1.164:/opt"
     }
 
- 
+stage ('Running the Playbook'){
+    sh "ssh ubuntu@10.5.1.164 sudo ansible-playbook /opt/playbooks/bankett-saalz-dev-service.yml"
+}
 }
